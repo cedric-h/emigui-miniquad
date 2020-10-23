@@ -116,7 +116,7 @@ impl Painter {
 
         if self.vertex_buffer_size < mesh.vertices.len() {
             self.vertex_buffer_size = mesh.vertices.len();
-            self.bindings.vertex_buffers[0].delete();
+            //self.bindings.vertex_buffers[0].delete();
             self.bindings.vertex_buffers[0] = Buffer::stream(
                 ctx,
                 BufferType::VertexBuffer,
@@ -140,7 +140,10 @@ impl Painter {
             .map(|x| Vertex {
                 pos: (x.pos.x, x.pos.y),
                 uv: x.uv,
-                color: (x.color.r, x.color.g, x.color.b, x.color.a),
+                color: {
+					let [r, g, b, a] = x.color.0;
+					(r, g, b, a)
+				},
             })
             .collect::<Vec<Vertex>>();
         self.bindings.vertex_buffers[0].update(ctx, &vertices);
