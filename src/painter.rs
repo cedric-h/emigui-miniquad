@@ -140,10 +140,7 @@ impl Painter {
             .map(|x| Vertex {
                 pos: (x.pos.x, x.pos.y),
                 uv: x.uv,
-                color: {
-					let [r, g, b, a] = x.color.0;
-					(r, g, b, a)
-				},
+				color: (x.color.r, x.color.g, x.color.b, x.color.a),
             })
             .collect::<Vec<Vertex>>();
         self.bindings.vertex_buffers[0].update(ctx, &vertices);
